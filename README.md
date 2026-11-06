@@ -5,6 +5,13 @@ A cross-platform authentication application built using **React Native, Expo, Re
 
 The application allows users to sign in using their Google accounts and restricts access exclusively to users with an official `@hbplus.fit` email address.
 
+# HB+ Wellness Platform
+
+## 🌐 Live Demo
+🔗 **Netlify Live URL:** https://hbplushauthentication.netlify.app/
+
+---
+
 ## 🚀 Features
 
 - Google OAuth 2.0 Authentication
