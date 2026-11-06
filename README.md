@@ -1,32 +1,39 @@
-HBPlus Authentication System
 
-A cross-platform authentication application built using React Native, Expo, React Native Web and Firebase Authentication.
+# HBPlus Authentication System
 
-The application allows users to sign in using their Google accounts and restricts access exclusively to users with an official @hbplus.fit email address.
+A cross-platform authentication application built using **React Native, Expo, React Native Web, and Firebase Authentication**.
 
-🚀 Features
-Google OAuth 2.0 Authentication
-Official email domain verification
-Restricted access for unauthorized users
-Protected Dashboard
-User profile information
-Logout functionality
-Persistent authentication sessions
-Loading and error handling
-Responsive UI for Web and Mobile
-Cross-platform support (Android, iOS and Web)
-🛠️ Technology Stack
-Technology	Purpose
-React Native	UI development
-Expo	Cross-platform development
-React Native Web	Web compatibility
-Firebase Authentication	Google authentication
-Firebase Firestore	User data storage (optional)
-AsyncStorage	Mobile session persistence
-Netlify	Web deployment
-GitHub	Source code management
-📁 Project Structure
-text
+The application allows users to sign in using their Google accounts and restricts access exclusively to users with an official `@hbplus.fit` email address.
+
+## 🚀 Features
+
+- Google OAuth 2.0 Authentication
+- Official email domain verification
+- Restricted access for unauthorized users
+- Protected Dashboard
+- User profile information
+- Logout functionality
+- Persistent authentication sessions
+- Loading and error handling
+- Responsive UI for Web and Mobile
+- Cross-platform support (Android, iOS, and Web)
+
+## 🛠️ Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| React Native | UI Development |
+| Expo | Cross-platform Development |
+| React Native Web | Web Compatibility |
+| Firebase Authentication | Google Authentication |
+| Firebase Firestore | User Data Storage |
+| AsyncStorage | Mobile Session Persistence |
+| Netlify | Web Deployment |
+| GitHub | Source Code Management |
+
+## 📁 Project Structure
+
+```text
 hbplus-auth/
 │
 ├── src/
@@ -47,44 +54,51 @@ hbplus-auth/
 ├── app.json
 ├── package.json
 └── README.md
+```
 
+*Note: The folder structure will be updated as development progresses.*
 
-Note: The folder structure will be updated as additional features are implemented.
+## ⚙️ Setup Instructions
 
-⚙️ Setup Instructions
-1. Prerequisites
+### 1. Prerequisites
 
-Install the following software:
+Install the following tools:
 
-Node.js 24 LTS or compatible version
-npm
-Git
-Visual Studio Code
-2. Clone the Repository
-bash
+- Node.js
+- npm
+- Git
+- Visual Studio Code
+
+### 2. Clone the Repository
+
+```bash
 git clone YOUR_GITHUB_REPOSITORY_URL
+```
 
+Navigate to the project directory:
 
-Navigate into the project:
-
-bash
+```bash
 cd hbplus-auth
+```
 
-3. Install Dependencies
-bash
+### 3. Install Dependencies
+
+```bash
 npm install
+```
 
-4. Configure Firebase
-Visit Firebase Console.
-Create a Firebase project.
-Register a Web application.
-Enable Google Authentication under Authentication → Sign-in providers.
-Add localhost to Authorized Domains.
-Copy your Firebase configuration.
+### 4. Firebase Configuration
 
-Create or update src/config/firebase.js:
+1. Open [Firebase Console](https://console.firebase.google.com/).
+2. Create a Firebase project.
+3. Register a Web application.
+4. Enable Google Authentication under Authentication → Sign-in providers.
+5. Add `localhost` to Authorized Domains.
+6. Copy your Firebase configuration.
 
-javascript
+Create the file `src/config/firebase.js`:
+
+```javascript
 import { initializeApp, getApp, getApps } from 'firebase/app';
 
 const firebaseConfig = {
@@ -101,69 +115,73 @@ const app = getApps().length === 0
   : getApp();
 
 export default app;
+```
 
+Replace the placeholder values with your Firebase project configuration.
 
-Use your own Firebase project configuration. Never commit private service-account credentials or OAuth client secrets.
+### 5. Run the Application
 
-5. Run the Application
+Start the development server:
 
-Start the Expo development server:
-
-bash
+```bash
 npx expo start
+```
 
+Run on Web:
 
-For Web:
-
-bash
+```bash
 npx expo start --web
+```
 
+Run on Android:
 
-For Android:
-
-bash
+```bash
 npx expo start --android
+```
 
+Run on iOS:
 
-For iOS:
-
-bash
+```bash
 npx expo start --ios
+```
 
+*Note: Native Google Sign-In requires an appropriate native development build and OAuth configuration.*
 
-Native Google sign-in requires the appropriate native development build and OAuth configuration.
-
-🔐 Authentication Flow
+## 🔐 Authentication Flow
 
 The application follows this authentication process:
 
-User opens the HBPlus application.
-User clicks the Continue with Google button.
-Google OAuth authenticates the user.
-Firebase Authentication returns the authenticated user identity.
-The application checks the user's verified email address.
-The email domain is validated against hbplus.fit.
-Authorized users are redirected to the Dashboard.
-Unauthorized users are signed out and shown an access restriction message.
-Authentication Decision
-Email	Result
-employee@hbplus.fit	Access Allowed
-admin@hbplus.fit	Access Allowed
-user@gmail.com	Access Denied
-user@yahoo.com	Access Denied
-🛡️ How Domain Restriction Works
+1. User opens the HBPlus application.
+2. User clicks the **Continue with Google** button.
+3. Google OAuth authenticates the user.
+4. Firebase Authentication returns the authenticated user identity.
+5. The application checks the user's verified email address.
+6. The email domain is validated against `hbplus.fit`.
+7. Authorized users are redirected to the Dashboard.
+8. Unauthorized users are signed out and shown an access restriction message.
+
+### Authentication Decision
+
+| Email Address | Result |
+|---|---|
+| employee@hbplus.fit | Access Allowed |
+| admin@hbplus.fit | Access Allowed |
+| user@gmail.com | Access Denied |
+| user@yahoo.com | Access Denied |
+
+## 🛡️ How Domain Restriction Works
 
 The application only permits users whose verified email address belongs to the official company domain.
 
-Allowed domain:
+**Allowed Domain:**
 
-text
+```text
 hbplus.fit
+```
 
+### Domain Validation Logic
 
-Example validation logic:
-
-javascript
+```javascript
 const ALLOWED_DOMAIN = 'hbplus.fit';
 
 export function isAuthorizedEmail(email) {
@@ -175,54 +193,78 @@ export function isAuthorizedEmail(email) {
     `@${ALLOWED_DOMAIN}`
   );
 }
+```
 
-Authorization Rules
-Emails ending in @hbplus.fit are eligible for access.
-Emails from other domains are rejected.
-Unverified email accounts are rejected.
-Unauthorized users are signed out.
-Dashboard access requires a valid authenticated session.
-Backend Security
+### Authorization Rules
+
+- Emails ending in `@hbplus.fit` are eligible for access.
+- Emails from other domains are rejected.
+- Unverified email accounts are rejected.
+- Unauthorized users are signed out.
+- Dashboard access requires a valid authenticated session.
+
+### Backend Security
 
 Domain validation must not rely exclusively on frontend JavaScript.
 
 Firebase Firestore Security Rules and trusted backend authorization should independently verify:
 
-Authenticated user identity.
-Verified email status.
-Allowed email domain.
-User-specific access permissions.
+- Authenticated user identity.
+- Verified email status.
+- Allowed email domain.
+- User-specific access permissions.
 
-This prevents unauthorized access to protected application data even if someone bypasses the frontend.
+This ensures that unauthorized users cannot access protected application data by bypassing frontend restrictions.
 
-🔒 Security Considerations
-Firebase Authentication handles Google identity verification.
-Email verification is checked before granting access.
-Protected routes prevent unauthenticated dashboard access.
-Authentication sessions use platform-appropriate persistence.
-Sensitive credentials are never stored in source code.
-Firestore access is restricted using security rules.
-🌐 Deployment
+## 🔒 Security Considerations
+
+- Firebase Authentication handles Google identity verification.
+- Verified email addresses are checked before granting access.
+- Protected routes prevent unauthenticated dashboard access.
+- Authentication sessions use platform-appropriate persistence.
+- Sensitive credentials are never stored in source code.
+- Firestore access is restricted using security rules.
+
+## 🌐 Deployment
 
 The Web application can be deployed using Netlify.
 
-General deployment process:
+### Deployment Steps
 
-Push the project to GitHub.
-Connect the GitHub repository to Netlify.
-Configure the build command and output directory according to the Expo Web export.
-Add the deployed domain to Firebase Authorized Domains.
-Configure the corresponding Google OAuth settings.
-Deploy and test authentication.
+1. Push the project to GitHub.
+2. Connect the GitHub repository to Netlify.
+3. Configure the build command and output directory.
+4. Add the deployed domain to Firebase Authorized Domains.
+5. Configure the corresponding Google OAuth settings.
+6. Deploy and test authentication.
 
-Example Expo Web build:
+### Build Command
 
-bash
+```bash
 npx expo export --platform web
+```
 
+### Netlify Configuration
 
-Expo generates the static web build in the dist directory.
+| Setting | Value |
+|---|---|
+| Build Command | `npx expo export --platform web` |
+| Publish Directory | `dist` |
 
-Netlify configuration:
+## 📌 Project Status
 
-Build command: `npx expo export --platform
+This project is being developed as a cross-platform authentication solution for HBPlus.
+
+Planned deliverables:
+
+- Google Authentication
+- Company Domain Restriction
+- Protected Dashboard
+- Logout Functionality
+- Responsive Web and Mobile Support
+- GitHub Source Repository
+- Netlify Deployment
+
+## 👨‍💻 Author
+
+Developed as part of the HBPlus Cross-Platform Application Assessment.
